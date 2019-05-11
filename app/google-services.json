@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "19940737513",
+    "firebase_url": "https://pokemon-bd55b.firebaseio.com",
+    "project_id": "pokemon-bd55b",
+    "storage_bucket": "pokemon-bd55b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19940737513:android:13c3c6a65bcbec53",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19940737513-dtg0d5gkoe4nqnsqkolps9divbcltqj4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwRlpr0yVoOY1OeM-8FeDug-nSgJWQqQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19940737513-dtg0d5gkoe4nqnsqkolps9divbcltqj4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19940737513:android:95d1600ce7f78028",
+        "android_client_info": {
+          "package_name": "com.example.pokemongo1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19940737513-dtg0d5gkoe4nqnsqkolps9divbcltqj4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwRlpr0yVoOY1OeM-8FeDug-nSgJWQqQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19940737513-dtg0d5gkoe4nqnsqkolps9divbcltqj4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

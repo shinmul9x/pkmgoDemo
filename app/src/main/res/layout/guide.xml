@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtGuide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hướng dẫn chơi game Pokemon Go: Các bạn dùng tab “Map” để xác định vị trí hiện tại của mình và vị trí các con Pokemon.Game sẽ định vị vị trí hiện tại của các bạn sau khoảng thời gian 1 phút, nếu các bạn ở trong phạm vi khoảng cách pokemon là dưới 400 mét thì các bạn sẽ bắt được pokemon đó . Các con pokemon sẽ được cho vào “Túi Pokemon”.Các bạn có thể kiểm tra lại số các con pokemon bắt được trong “Túi Pokemon” "
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btnReturn"
+        style="@style/FlatButton"
+        android:layout_width="183dp"
+
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="93dp"
+        android:layout_marginEnd="136dp"
+        android:layout_marginBottom="168dp"
+        android:text="Trở lại màn hình chính"
+        android:textColor="#F90404"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnReturn2"
+        style="@style/FlatButton"
+        android:layout_width="146dp"
+        android:layout_height="58dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="152dp"
+        android:layout_marginBottom="73dp"
+        android:text="Vào Game"
+        android:textColor="#F90404"
+        android:textStyle="bold" />
+</RelativeLayout>

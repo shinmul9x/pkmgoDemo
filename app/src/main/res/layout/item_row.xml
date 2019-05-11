@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back3"
+    android:id="@+id/itemzero">
+
+
+    <ImageView
+        android:id="@+id/imgHinh"
+        android:layout_width="402dp"
+        android:layout_height="369dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="341dp"
+        android:layout_marginEnd="9dp" />
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="168dp"
+        android:layout_height="84dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="13dp"
+        android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/txtPower"
+        android:layout_width="159dp"
+        android:layout_height="75dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="162dp"
+        android:layout_marginEnd="20dp"
+        android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="166dp"
+        android:layout_height="72dp"
+        android:text="Tên "
+        android:textColor="#0F25E7"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="174dp"
+        android:layout_height="76dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="159dp"
+        android:layout_marginEnd="231dp"
+        android:text="Sức mạnh"
+        android:textColor="#0F25E7"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

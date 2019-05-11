@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/manhinh">
+
+    <Button
+        android:id="@+id/btn"
+
+        style="@style/FlatButton"
+        android:layout_width="137dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="332dp"
+        android:drawableLeft="@drawable/pikachu"
+        android:text="PLAY"
+        android:textColor="#F90404"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn2"
+        style="@style/FlatButton"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="418dp"
+        android:layout_marginEnd="155dp"
+        android:layout_marginBottom="170dp"
+        android:drawableLeft="@drawable/pikachu"
+        android:onClick="View1"
+        android:text="Guide"
+        android:textColor="#F90404" />
+</RelativeLayout>

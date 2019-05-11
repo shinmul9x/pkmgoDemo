@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">PokemonGo1</string>
+    <string name="title_activity_maps">Map</string>
+    <style name="FlatButton" parent ="Widget.AppCompat.Button.Borderless">
+
+
+
+
+    </style>
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+
+    <!-- Change the following strings as required -->
+    <string name="back4app_app_id">5R79og2psvwkiDLGHNREqHAXaRdg3Oww4WpfGBwJ</string>
+    <string name="back4app_client_key">Lbt2RclKSjXndi9HSG18Tx3PyTIsEYMkMzUDKHSJ</string>
+    <string name="facebook_app_id">3168050056555136</string>
+    <string name="fb_login_protocol_scheme">fb3168050056555136</string>
+
+</resources>
