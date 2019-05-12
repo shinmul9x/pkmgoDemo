@@ -2,6 +2,7 @@ package com.example.pokemongo1;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHolder>{
@@ -45,11 +47,6 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
         viewHolder.txtName.setText(pokemons.get(i).getName());
         viewHolder.txtPower.setText(pokemons.get(i).getPower());
         viewHolder.imgHinh.setImageResource(pokemons.get(i).getImage());
-
-
-
-
-
     }
 
     @Override

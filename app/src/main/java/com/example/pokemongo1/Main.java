@@ -35,9 +35,9 @@ public class Main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(Main.this, MapsActivity.class);
-                startActivity(intent);
-                ParseUser.getCurrentUser().put("Guest", "nam");
+//                intent.setClass(Main.this, MapsActivity.class);
+//                startActivity(intent);
+//                ParseUser.getCurrentUser().put("Guest", "nam");
             }
         });
         btn2.setOnClickListener(new View.OnClickListener() {

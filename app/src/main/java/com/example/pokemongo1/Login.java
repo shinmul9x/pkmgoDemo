@@ -48,10 +48,10 @@ public class Login extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 Toast.makeText(Login.this, "Success", Toast.LENGTH_LONG).show();
                 Log.d("Login","Success!");
-                Intent intent = new Intent(Login.this, MapsActivity.class);
-                //intent.setClass(Login.this, MapsActivity.class);
-                intent.putExtra("idfb",loginResult.getAccessToken().getUserId());
-                startActivity(intent);
+//                Intent intent = new Intent(Login.this, MapsActivity.class);
+//                //intent.setClass(Login.this, MapsActivity.class);
+//                intent.putExtra("idfb",loginResult.getAccessToken().getUserId());
+//                startActivity(intent);
 
                 //resuilt();
                 // Lấy id của user loginResult.getAccessToken().getUserId()
