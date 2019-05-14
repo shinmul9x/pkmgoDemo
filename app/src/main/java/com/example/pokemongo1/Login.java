@@ -28,17 +28,16 @@ import org.json.JSONObject;
 public class Login extends AppCompatActivity {
     private CallbackManager callbackManager;
     private LoginButton loginButton;
-    private String id,name;
-    Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        FacebookSdk.sdkInitialize(this.getApplicationContext());
-        callbackManager=CallbackManager.Factory.create();
-        loginButton=(LoginButton)findViewById(R.id.login_button);
-        setLoginButton();
 
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+        setLoginButton();
     }
 
     private void setLoginButton() {
@@ -48,37 +47,26 @@ public class Login extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 Toast.makeText(Login.this, "Success", Toast.LENGTH_LONG).show();
                 Log.d("Login","Success!");
-//                Intent intent = new Intent(Login.this, MapsActivity.class);
-//                //intent.setClass(Login.this, MapsActivity.class);
-//                intent.putExtra("idfb",loginResult.getAccessToken().getUserId());
-//                startActivity(intent);
+                Intent intent = new Intent(Login.this, Maps_Test.class);
+                intent.putExtra("idfb",loginResult.getAccessToken().getUserId());
+                startActivity(intent);
 
-                //resuilt();
-                // Lấy id của user loginResult.getAccessToken().getUserId()
-                /*
-                Intent intent1 = new Intent();
-                intent1.putExtra("idfb",loginResult.getAccessToken().getUserId());
-                setResult(RESULT_OK,intent1);
-                finish();
-                */
-                ///////////////////////////////////////////////////////
-                //ParseUser.getCurrentUser().setUsername(name);
-                ParseUser.getCurrentUser().put("id",id);
-                if (ParseUser.getCurrentUser() == null) {
-                    ParseAnonymousUtils.logIn(new LogInCallback() {
-                        @Override
-                        public void done(ParseUser user, ParseException e) {
-                            if (e == null) {
-                                Log.i("Info", "Annonymous hero..");
-                            } else {
-                                Log.i("..", "false");
-                            }
-
-                            //redirectActivity();
-
-                        }
-                    });
-                }
+//                ParseUser.getCurrentUser().put("id",id);
+//                if (ParseUser.getCurrentUser() == null) {
+//                    ParseAnonymousUtils.logIn(new LogInCallback() {
+//                        @Override
+//                        public void done(ParseUser user, ParseException e) {
+//                            if (e == null) {
+//                                Log.i("Info", "Annonymous hero..");
+//                            } else {
+//                                Log.i("..", "false");
+//                            }
+//
+//                            //redirectActivity();
+//
+//                        }
+//                    });
+//                }
             }
 
             @Override
@@ -93,11 +81,12 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onError(FacebookException error) {
-                Toast.makeText(Login.this,"Lỗi không vào được facebook",Toast.LENGTH_LONG).show();
+                Toast.makeText(Login.this,"login error",Toast.LENGTH_SHORT).show();
+                Log.v("pkm", error.getMessage());
 
                 Intent intent = new Intent();
                 intent.setClass(Login.this, Maps_Test.class);
-                //intent.putExtra("idfb", "100036382504484");
+                intent.putExtra("idfb", "100036382504484");
                 startActivity(intent);
             }
         });
