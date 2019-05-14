@@ -53,16 +53,15 @@ public class Maps_Test extends FragmentActivity implements OnMapReadyCallback, L
     // Mã yêu cầu hỏi người dùng cho phép xem vị trí hiện tại của họ (***).
     // Giá trị mã 8bit (value < 256).
     public static final int REQUEST_ID_ACCESS_COURSE_FINE_LOCATION = 100;
-    public static final int[] index = {R.drawable.arbok, R.drawable.bellsprout, R.drawable.bulbasaurz, R.drawable.charmanderz, R.drawable.diglett, R.drawable.dodrio, R.drawable.dragonite, R.drawable.exeggutor, R.drawable.gengar, R.drawable.growlithe, R.drawable.haunter, R.drawable.hitmonlee, R.drawable.jolteon, R.drawable.koffing, R.drawable.krabby, R.drawable.magnemite, R.drawable.mankey, R.drawable.metapodz, R.drawable.nidoran, R.drawable.pidgeotz, R.drawable.pikachu};
 
     // Location
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationCallback locationCallback;
     private LocationRequest locationRequest;
+    Location myLoc;
 
     // Game entities
     private Trainer trainer; // player
-    private ArrayList<Pokemon> pokemonsWilds;
 
     // Map objects
     private GoogleMap mMap;
@@ -80,9 +79,20 @@ public class Maps_Test extends FragmentActivity implements OnMapReadyCallback, L
 
         //setup firebase
         connection = new FirebaseConnection();
-//        for (Pokemon pkm : getPokemonWilds()) {
-//            connection.dbRef.child("pokemonWild").push().setValue(pkm);
-//        }
+        connection.setOnGetPokemon(new PokemonChangeListener() {
+            @Override
+            public void onGetPokemon(ArrayList<Pokemonp> pokemons) {
+                displayListPokemon(pokemons);
+                Log.v("pkm", "pkm in bag: " + pokemons.size() + "");
+            }
+        });
+        connection.setPokemonWildChangeListener(new PokemonWildChangeListener() {
+            @Override
+            public void onPokemonWildChange(ArrayList<Pokemon> pokemons) {
+                showPokemonsWild(pokemons);
+                Log.v("pkm", "pkm wild: " + pokemons.size());
+            }
+        });
 
         //setup map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -94,14 +104,7 @@ public class Maps_Test extends FragmentActivity implements OnMapReadyCallback, L
 
         // get info player
         Intent intent = this.getIntent();
-        trainer = connection.getTrainer(intent.getStringExtra("idfb"));
-        if (trainer == null) {
-            Toast.makeText(this,"null trainer", Toast.LENGTH_SHORT).show();
-            trainer = new Trainer(intent.getStringExtra("idfb"), "thuy");
-        }
-
-        // get pokemons wild
-        pokemonsWilds = getPokemonWilds();
+        trainer = new Trainer(intent.getStringExtra("idfb"), "thuy", getPokemons());
 
         //setup tabhost
         setupTabhost();
@@ -130,7 +133,7 @@ public class Maps_Test extends FragmentActivity implements OnMapReadyCallback, L
             public void onTabChanged(String tabId) {
                 if (bagTab.getTag().equals(tabId)) {
                     stopLocationChangeListener();
-                    displayListPokemon();
+                    connection.getPokemon(trainer.getId());
                 } else if (mapTab.getTag().equals(tabId)) {
                     startLocationChangeListener();
                 }
@@ -141,22 +144,20 @@ public class Maps_Test extends FragmentActivity implements OnMapReadyCallback, L
     /**
      * display list trainer's pokemons on bagtab
      */
-    private void displayListPokemon() {
+    private void displayListPokemon(ArrayList<Pokemonp> pokemons) {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycle_view);
+
         recyclerView.setHasFixedSize(true);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this
-                , LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
 
-        Drawable drawable = ContextCompat.getDrawable(getApplication(), R.drawable.custom_divider);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),DividerItemDecoration.VERTICAL);
+        Drawable drawable = ContextCompat.getDrawable(getApplication(),R.drawable.custom_divider);
         dividerItemDecoration.setDrawable(drawable);
-
         recyclerView.addItemDecoration(dividerItemDecoration);
-        //PokemonAdapter pokemonAdapter = new PokemonAdapter(trainer.getPokemons());
-        PokemonAdapter pokemonAdapter = new PokemonAdapter(getPokemons());
+
+        PokemonAdapter pokemonAdapter = new PokemonAdapter(pokemons);
         recyclerView.setAdapter(pokemonAdapter);
     }
 
@@ -179,7 +180,9 @@ public class Maps_Test extends FragmentActivity implements OnMapReadyCallback, L
                 }
 
                 showMyLocation(locationResult.getLastLocation());
-                showPokemonsWild(locationResult.getLastLocation());
+                connection.updateLocation(trainer.getId(), locationResult.getLastLocation());
+                myLoc = locationResult.getLastLocation();
+                connection.getPokemonWild(myLoc);
                 locationResult.getLocations().clear();
             }
         };
@@ -241,34 +244,21 @@ public class Maps_Test extends FragmentActivity implements OnMapReadyCallback, L
             options.position(latLng);
             mMarker = mMap.addMarker(options);
 
-            // TODO: insert trainer's location into Parse Server
-
         }
     }
 
-    private void showPokemonsWild(Location location) {
-        ArrayList<Pokemon> pokemonsWild = pokemonsWilds;
-        // TODO: get list pokemon's location from Parse Server
+    private void showPokemonsWild(ArrayList<Pokemon> pokemons) {
+        if (pkmWildMarkers != null) {
+            for ( Marker marker : pkmWildMarkers ) {
+                marker.remove();
+            }
+            pkmWildMarkers.clear();
+        }
 
-        for (Pokemon pokemon : pokemonsWild) {                       // update DB then delete this
-            boolean isExist = false;                                 // part
-            for (Marker pkmMarker : pkmWildMarkers) {                //
-                if (pkmMarker.getTitle().equals(pokemon.getId())) {  //
-                    isExist = true;                                  //
-                    break;                                           //
-                }                                                    //
-            }                                                        //
-            if (isExist) {                                           //
-                continue;                                            //
-            }                                                        //
-
-            LatLng latLng = new LatLng(pokemon.getLatitude(), pokemon.getLongitude());
-            //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-
+        for (Pokemon pokemon : pokemons) {
             MarkerOptions options = new MarkerOptions();
-            //TODO
-            //options.icon(BitmapDescriptorFactory.fromResource(pokemon.getImage()));
-            options.position(latLng);
+            options.icon(BitmapDescriptorFactory.fromResource(pokemon.getImage()));
+            options.position(new LatLng(pokemon.getLatitude(), pokemon.getLongitude()));
             options.title(pokemon.getId());
             Marker marker = mMap.addMarker(options);
             marker.hideInfoWindow();
@@ -297,36 +287,23 @@ public class Maps_Test extends FragmentActivity implements OnMapReadyCallback, L
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        for (Marker pkmMarker : pkmWildMarkers) {
-            if (pkmMarker.equals(marker)) {
-                if (hasCaughtPokemon(marker.getTitle())) {
-                    pkmWildMarkers.remove(pkmMarker);
-                    Toast.makeText(this, "Catched a pokemon", Toast.LENGTH_LONG).show();
-                    return true;
-                }
+        if (!marker.equals(mMarker)) {
+            if (connection.catchPokemon(marker.getTitle(), trainer.getId())) {
+                Log.v("pkm", "Caught a pokemon");
             }
+
+            pkmWildMarkers.remove(marker);
             marker.remove();
+            return true;
         }
+        Log.v("pkm", "trainerMaker");
         return false;
-    }
-
-    private boolean hasCaughtPokemon(String pokemonId) {
-        // TODO: edit DB
-
-        for (Pokemon pokemon : pokemonsWilds) {
-            if (pokemon.getId().equals(pokemonId)) {
-                trainer.addPokemon((Pokemonp) pokemon);
-                //pokemonsWilds.remove(pokemon);
-                return true;
-            }
-        }
-        Log.v("pkmgo", "catched " + pokemonId);
-        return true;
     }
 
     @Override
     public void onMapLoaded() {
         startLocationChangeListener();
+        connection.getPokemonWild();
     }
 
     @Override
@@ -362,37 +339,9 @@ public class Maps_Test extends FragmentActivity implements OnMapReadyCallback, L
         startLocationChangeListener();
     }
 
-    private ArrayList<Pokemon> getPokemonWilds() {
-        ArrayList<Pokemon> pokemonsWild = new ArrayList<>();
-//        pokemonsWild.add(new Pokemon(-700051, "Bulbasaur", "45", 21.040450, 105.783106));
-//        pokemonsWild.add(new Pokemon(R.drawable.bulbasaurz, "Bulbasaur","32",  21.039949, 105.780231));
-//        pokemonsWild.add(new Pokemon(R.drawable.bulbasaurz, "Bulbasaur","25",  21.037045, 105.784351));
-//        pokemonsWild.add(new Pokemon(R.drawable.pidgeotz, "Pidgeot", "45", 21.037556, 105.784748));
-//        pokemonsWild.add(new Pokemon(R.drawable.poliwrathz, "Poliwrathz","60",  21.035483, 105.783729));
-//        pokemonsWild.add(new Pokemon(R.drawable.arbok ,"Arbok","48",21.008645,105.814592));
-//        pokemonsWild.add(new Pokemon(R.drawable.bellsprout,"bellsprout","59",21.022596,105.803273));
-//        pokemonsWild.add(new Pokemon(R.drawable.diglett,"diglett","78",21.026402,105.796160));
-//        pokemonsWild.add(new Pokemon(R.drawable.dodrio,"dodrio","56",21.036266,105.789358));
-//        pokemonsWild.add(new Pokemon(R.drawable.dragonite,"dragonite","89",21.035785,105.786204));
-//        pokemonsWild.add(new Pokemon(R.drawable.exeggutor,"exeggutor","19",21.032030,105.784305));
-//        pokemonsWild.add(new Pokemon(R.drawable.gengar,"gengar","57",21.028475,105.779895));
-//        pokemonsWild.add(new Pokemon(R.drawable.growlithe,"growlithe","77",21.027423,105.778318));
-//        pokemonsWild.add(new Pokemon(R.drawable.haunter,"haunter","74",21.017218,105.790813));
-        return pokemonsWild;
-    }
-
     private ArrayList<Pokemonp> getPokemons() {
         ArrayList<Pokemonp> pokemons = new ArrayList<>();
-        pokemons.add(new Pokemonp(1,"74"));
-        pokemons.add(new Pokemonp(2,"74"));
-        pokemons.add(new Pokemonp(3,"74"));
-        pokemons.add(new Pokemonp(4,"74"));
-        pokemons.add(new Pokemonp(5,"74"));
-        pokemons.add(new Pokemonp(6,"74"));
-        pokemons.add(new Pokemonp(7,"74"));
-        pokemons.add(new Pokemonp(8,"74"));
-        pokemons.add(new Pokemonp(9,"74"));
-        pokemons.add(new Pokemonp(10,"74"));
+        pokemons.add(new Pokemonp(1,74));
         return pokemons;
     }
 }

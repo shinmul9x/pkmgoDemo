@@ -7,7 +7,7 @@ public class Trainer {
     private String name;
     private ArrayList<Pokemonp> pokemons;
 
-    private static Trainer instance; // Singleton Pattern
+    //private static Trainer instance; // Singleton Pattern
 
     public Trainer(String id, String name) {
         this.id = id;

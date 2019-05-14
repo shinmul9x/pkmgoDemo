@@ -6,7 +6,7 @@ public class Pokemon  extends Pokemonp{
     private double latitude;
     private double longitude;
 
-    Pokemon(int index, String power, double lat, double log){
+    Pokemon(int index, int power, double lat, double log){
         super(index,power);
         //this.id = id;
         latitude = lat;

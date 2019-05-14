@@ -44,6 +44,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "19940737513-6t72f3uop9bvhet0a3od1hgbth680sue.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pokemongo1",
+            "certificate_hash": "b70dbdaa873d4c54e3c647fc51f3c04afb58c522"
+          }
+        },
+        {
           "client_id": "19940737513-dtg0d5gkoe4nqnsqkolps9divbcltqj4.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -87,7 +87,7 @@ public class Login extends AppCompatActivity {
 
                 Intent intent = new Intent();
                 intent.setClass(Login.this, Maps_Test.class);
-                intent.putExtra("idfb", "100036382504484");
+                intent.putExtra("idfb", "100036382504485");
                 startActivity(intent);
             }
 

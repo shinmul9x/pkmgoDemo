@@ -9,11 +9,11 @@ public class Pokemonp {
     //private String image;
     //private String name;
     private int index;
-    private String power;
+    private int power;
 
     public  Pokemonp(){}
 
-    public Pokemonp(int index, String power) {
+    public Pokemonp(int index, int power) {
 //        this.image = new File(image).getAbsolutePath();
 //        this.name = name;
         this.index = index;
@@ -29,11 +29,15 @@ public class Pokemonp {
         return name[index];
     }
 
-    public String getPower() {
-        return power;
+    public int getIndex() {
+        return index;
     }
 
-    public void setPower(String power) {
+    public String getPower() {
+        return power + "";
+    }
+
+    public void setPower(int power) {
         this.power = power;
     }
 }
