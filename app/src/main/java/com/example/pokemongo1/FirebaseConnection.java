@@ -72,7 +72,7 @@ public class FirebaseConnection {
                     Location pkmLocation = new Location("pkmgo");
                     pkmLocation.setLatitude(latitude);
                     pkmLocation.setLongitude(longitude);
-                    if (trainerLocation.distanceTo(pkmLocation) <= 20) {
+                    if (trainerLocation.distanceTo(pkmLocation) <= 30) {
                         pokemons.add(pokemon);
                     }
 

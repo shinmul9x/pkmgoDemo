@@ -179,7 +179,13 @@ public class Maps_Test extends FragmentActivity implements OnMapReadyCallback, L
                     return;
                 }
 
-                showMyLocation(locationResult.getLastLocation());
+                if (myLoc != null) {
+                    if (locationResult.getLastLocation().distanceTo(myLoc) > 3) {
+                        showMyLocation(locationResult.getLastLocation());
+                    }
+                } else {
+                    showMyLocation(locationResult.getLastLocation());
+                }
                 connection.updateLocation(trainer.getId(), locationResult.getLastLocation());
                 myLoc = locationResult.getLastLocation();
                 connection.getPokemonWild(myLoc);
