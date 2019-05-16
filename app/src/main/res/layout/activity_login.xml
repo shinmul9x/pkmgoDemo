@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:background="@drawable/pokemonbackgr"
+    android:background="@drawable/glassbackground"
     tools:context=".Login">
 
 
@@ -22,11 +22,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginStart="77dp"
-        android:layout_marginTop="354dp"
-        android:layout_marginEnd="91dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginEnd="80dp"
         android:layout_marginBottom="350dp"
-       />
+        android:fontFamily="monospace"
+        android:textSize="18sp"
+        android:typeface="normal" />
 
 
 

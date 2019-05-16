@@ -118,13 +118,13 @@ public class Maps_Test extends FragmentActivity implements OnMapReadyCallback, L
         // setup map tab
         final TabHost.TabSpec mapTab = tabHost.newTabSpec("mapTab");
         mapTab.setContent(R.id.tab1);
-        mapTab.setIndicator("Map");
+        mapTab.setIndicator("", ContextCompat.getDrawable(this, R.drawable.icon_maps_48));
         tabHost.addTab(mapTab);
 
         // setup bag tab
         final TabHost.TabSpec bagTab = tabHost.newTabSpec("bagTab");
         bagTab.setContent(R.id.tab2);
-        bagTab.setIndicator("Bag");
+        bagTab.setIndicator("", ContextCompat.getDrawable(this, R.drawable.icon_pokebag_48));
         tabHost.addTab(bagTab);
 
         // onclick bagtab
@@ -152,10 +152,10 @@ public class Maps_Test extends FragmentActivity implements OnMapReadyCallback, L
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),DividerItemDecoration.VERTICAL);
-        Drawable drawable = ContextCompat.getDrawable(getApplication(),R.drawable.custom_divider);
-        dividerItemDecoration.setDrawable(drawable);
-        recyclerView.addItemDecoration(dividerItemDecoration);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),DividerItemDecoration.VERTICAL);
+//        Drawable drawable = ContextCompat.getDrawable(getApplication(),R.drawable.custom_divider);
+//        dividerItemDecoration.setDrawable(drawable);
+//        recyclerView.addItemDecoration(dividerItemDecoration);
 
         PokemonAdapter pokemonAdapter = new PokemonAdapter(pokemons);
         recyclerView.setAdapter(pokemonAdapter);
@@ -296,6 +296,7 @@ public class Maps_Test extends FragmentActivity implements OnMapReadyCallback, L
         if (!marker.equals(mMarker)) {
             if (connection.catchPokemon(marker.getTitle(), trainer.getId())) {
                 Log.v("pkm", "Caught a pokemon");
+                Toast.makeText(this, "Caught a pokemon!", Toast.LENGTH_LONG).show();
             }
 
             pkmWildMarkers.remove(marker);
