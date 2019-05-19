@@ -180,15 +180,13 @@ public class Maps_Test extends FragmentActivity implements OnMapReadyCallback, L
                 }
 
                 if (myLoc != null) {
-                    if (locationResult.getLastLocation().distanceTo(myLoc) > 3) {
+                    if (locationResult.getLastLocation().distanceTo(myLoc) > 5) {
                         showMyLocation(locationResult.getLastLocation());
                     }
                 } else {
                     showMyLocation(locationResult.getLastLocation());
                 }
-                connection.updateLocation(trainer.getId(), locationResult.getLastLocation());
-                myLoc = locationResult.getLastLocation();
-                connection.getPokemonWild(myLoc);
+
                 locationResult.getLocations().clear();
             }
         };
@@ -250,6 +248,9 @@ public class Maps_Test extends FragmentActivity implements OnMapReadyCallback, L
             options.position(latLng);
             mMarker = mMap.addMarker(options);
 
+            connection.updateLocation(trainer.getId(), myLocation);
+            myLoc = myLocation;
+            connection.getPokemonWild(myLoc);
         }
     }
 

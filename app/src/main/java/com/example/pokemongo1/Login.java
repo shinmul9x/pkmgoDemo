@@ -3,6 +3,7 @@ package com.example.pokemongo1;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -33,6 +34,8 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        getSupportActionBar().hide();
 
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
